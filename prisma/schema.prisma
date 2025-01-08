@@ -8,7 +8,35 @@ generator client {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id         Int     @id @default(autoincrement())
+  email      String  @unique
+  username   String  @default("tupã")
+  password   String
+  puppets    Puppet[]
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+
+model Puppet {
+  id           Int       @id @default(autoincrement())
+  name         String    @default("amendo-bobo")
+  skin         String    @default("{}")
+  puppeteer    User?     @relation(fields: [puppeteerId], references: [id])
+  puppeteerId  Int
+  servers      Server[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+
+model Server {
+  id         Int       @id @default(autoincrement())
+  code       Int       @unique
+  name       String    @default("map")
+  content    String    @default("{}")
+  owner      Puppet?   @relation(fields: [ownerId], references: [id])
+  ownerId    Int
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 }

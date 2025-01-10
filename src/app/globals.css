@@ -2,20 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+@font-face {
+    font-family: "Roboto";
+    src: url("/roboto/static/Roboto-Regular.ttf");
+}
+*/
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    --background: #ffffff;
+    --foreground: #171717;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+    :root {
+        --background: #0a0a0a;
+        --foreground: #ededed;
+    }
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+    color: var(--foreground);
+    background: var(--background);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.button-toogle {
+    display: none;
+}
+
+.button-toogle-label {
+    position: relative;
+    width: 80px;
+    height: 40px;
+    border-radius: 80px;
+    background-color: #4242ff;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.button-toogle-label:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+    background-color: #fff;
+    transition: 0.2s;
+}
+
+.button-toogle:checked + .button-toogle-label {
+    background-color: #4242ff;
+}
+
+.button-toogle:checked + .button-toogle-label::before {
+    transform: translateX(40px);
 }

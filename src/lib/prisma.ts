@@ -2,45 +2,42 @@ import { PrismaClient } from "@prisma/client";
 import { Get, Post } from "@/types/prisma";
 
 class Prisma {
-  model: string;
   prisma: any;
 
   constructor() {
     this.prisma = new PrismaClient();
-    this.model = "";
   }
 
-  apply(model: string) {
-    this.model = model;
-    return {
-      get: this.get,
-      post: this.post,
-    };
-  }
-
-  async get() {
+  async get(model: string, filter: object) {
     let response: any[] = [];
 
     try {
-      response = await this.prisma[this.model].findMany();
+      response = await this.prisma.user.findMany({
+        where: {
+          ...filter,
+        },
+      });
+
+      return response;
     } catch (err) {
       console.error(err);
-    } finally {
-      return response;
     }
   }
 
-  async post({ data = {} }: Post) {
-    let response: any[] = [];
+  async post(model: string, data: object) {
+    let response: any = [];
 
     try {
-      response = await this.prisma[this.model].create({
-        ...data,
+      response = await this.prisma.user.create({
+        data: {
+          ...data,
+        },
       });
-    } catch (err) {
-      console.error(err);
-    } finally {
       return response;
+    } catch (err) {
+      if (err instanceof Error) {
+        console.log(err.stack);
+      }
     }
   }
 }

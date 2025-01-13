@@ -6,8 +6,12 @@ import {
   Square2StackIcon,
 } from "@heroicons/react/24/solid";
 import { useState, useRef, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+//import { useRouter } from "next/router";
 
-export default () => {
+const HubPage = () => {
+  const { data: user } = useSession();
   const [server, sServer] = useState(false);
   const [menu, sMenu] = useState(false);
 
@@ -56,6 +60,7 @@ export default () => {
         ref={MenuRef}
         className="z-20 relative w-full h-screen overflow-hidden bg-[#101010] transition-transform duration-300"
       >
+        <h1 className="text-white">{JSON.stringify(user?.user)}</h1>
         <div className="z-30 absolute top-[16px] right-[32px] min-w-min min-h-min flex gap-[24px] items-center">
           {!server && (
             <button className="w-[40px] h-[40px] rounded-[16px] bg-[#4242ff] flex justify-center items-center">
@@ -118,4 +123,15 @@ export default () => {
       </ul>
     </div>
   );
+};
+
+export default () => {
+  const { data: session } = useSession();
+  const router = useRouter();
+
+  if (!session?.user) {
+    return <h1>not authenticate</h1>;
+  } else {
+    return <HubPage />;
+  }
 };

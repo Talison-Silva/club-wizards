@@ -63,3 +63,29 @@ body {
 .button-toogle:checked + .button-toogle-label::before {
     transform: translateX(40px);
 }
+
+/* block w-full rounded-md bg-[#1c2433] px-3 py-1.5 text-base text-white outline outline-1 -outline-offset-1 outline-[#333a48] placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 */
+.input-content {
+    position: relative;
+    display: flex;
+    width: 100%;
+    border-radius: 0.375rem;
+    background-color: #1c2433;
+    border: 1px solid #333a48;
+    align-items: center;
+}
+
+.input-content:focus-within {
+    outline: 2px solid #4d53e7;
+    outline-offset: -2px;
+}
+
+.input {
+    width: 100%;
+    padding: 0.375rem 0.75rem 0.375rem 0.75rem;
+    background-color: transparent;
+    color: white;
+
+    border: none;
+    outline: none;
+}

@@ -1,27 +1,33 @@
 "use client";
-import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
-import { useState } from "react";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
+import { useState, useRef } from "react";
 
 export default ({ name = "", label = "" }) => {
   const [toggle, sToggle] = useState(true);
+  const labelRef = useRef(null);
+
+  const onchange = (e) => {
+    if (e.target.value.length > 0) {
+      labelRef.current.classList.add("input-not-empty");
+    } else {
+      labelRef.current.classList.remove("input-not-empty");
+    }
+  };
 
   return (
-    <div>
-      <label
-        htmlFor={name}
-        className="text-[14px] font-medium text-white flex items-center gap-[6px] "
-      >
+    <div className="field-container">
+      <label ref={labelRef} htmlFor={name} className="field-container-label">
         <p>{label}</p>
-        <img src="/asterisk.svg" className="w-4 h-4" />
       </label>
-      <div className="mt-1 input-content">
+      <div className="flex">
         <input
           id={name}
           name={name}
           type={toggle ? "password" : "text"}
           required
+          onChange={onchange}
           autoComplete="current-password"
-          className="input"
+          className="field-container-input"
         />
         <button type="button">
           {toggle && (

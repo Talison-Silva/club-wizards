@@ -11,6 +11,9 @@ import { useRouter } from "next/navigation";
 //import { useRouter } from "next/router";
 import { Riple } from "react-loading-indicators";
 import { signOut } from "next-auth/react";
+import Loading from "../../components/loading";
+//import { uploadFile } from "../../lib/manager0file";
+import { Player } from "../../entities/player";
 
 const HubPage = () => {
   const { data: user } = useSession();
@@ -86,7 +89,14 @@ const HubPage = () => {
         </label>
 
         <div className="flex items-center gap-[12px] select-none">
-          <button className="w-[40px] h-[40px] rounded-full bg-[#4242ff] " />
+          <button
+            className="w-[40px] h-[40px] rounded-full bg-[#4242ff]"
+            style={{
+              background: `url(${user?.user?.image})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          />
           <h1 className="text-[16px] leading-[1.25rem] ">
             {user?.user?.name}
             <br />
@@ -101,7 +111,7 @@ const HubPage = () => {
         ref={MenuRef}
         className="z-20 relative w-full h-screen overflow-hidden bg-[#101010] transition-transform duration-300"
       >
-        <h1 className="text-white">{JSON.stringify(user?.user)}</h1>
+        <Player className="absolute left-[100px] top-[400px]" scale={10} />
 
         <div
           ref={ClosetRef}
@@ -139,22 +149,10 @@ const HubPage = () => {
 
 export default () => {
   const { data: session } = useSession();
-  const router = useRouter();
-
-  console.log(session);
+  //const router = useRouter();
 
   if (!session?.user) {
-    return (
-      <section className="w-full h-screen flex justify-center items-center">
-        <Riple
-          color="#4242ff"
-          speedPlus={-2}
-          size="medium"
-          text=""
-          textColor=""
-        />
-      </section>
-    );
+    return <Loading />;
   } else {
     return <HubPage />;
   }

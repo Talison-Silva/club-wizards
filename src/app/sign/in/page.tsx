@@ -28,10 +28,19 @@ export default () => {
   //const router: Route = useRouter();
 
   return (
-    <section className="h-screen flex justify-center items-center select-none">
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <h2 className="text-center text-[36px] font-bold tracking-tight text-white">
+    <section className="h-screen flex justify-center items-center gap-[40px] select-none">
+      <div className="min-h-min min-w-min flex-col justify-center px-6 py-12 lg:px-8">
+        <div className="sm:mx-auto sm:w-full sm:max-w-sm flex flex-col items-center">
+          <div
+            style={{
+              background: "url('/club-wizards.svg')",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+            className="w-[80px] h-[80px]"
+          />
+
+          <h2 className="mt-[24px] text-center text-[36px] font-bold tracking-tight text-white">
             Sign in to your account
           </h2>
           <p className="mt-[12px] text-center text-sm/6 text-[#99a1af]">
@@ -62,6 +71,15 @@ export default () => {
           </Form>
         </div>
       </div>
+
+      <div
+        className="w-[480px] h-[96%] rounded-[40px]"
+        style={{
+          background: "url('/test.svg')",
+          backgroundSize: "cover",
+          backgroundPosition: "bottom",
+        }}
+      />
     </section>
   );
 };

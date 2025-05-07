@@ -7,10 +7,17 @@ export default () => {
   const passwdConfirmRef = useRef(null);
   const [learn, sLearn] = useState(false);
   const [check, sCheck] = useState(false);
+  const labelRef = useRef(null);
 
   let passwd: String = "",
     compare: String = "";
-  const analise = () => {
+  const analise = (e) => {
+    if (e.target.value.length > 0) {
+      labelRef.current.classList.add("input-not-empty");
+    } else {
+      labelRef.current.classList.remove("input-not-empty");
+    }
+
     passwd = document.getElementsByName("password")[0].value;
     compare = passwdConfirmRef.current.value || "";
 
@@ -27,19 +34,20 @@ export default () => {
     }
   };
   return (
-    <div>
+    <div className="field-container">
       <label
+        ref={labelRef}
         htmlFor="passwd-confirm"
-        className="block text-[14px] font-medium text-white"
+        className="field-container-label"
       >
         Confirm password
       </label>
-      <div className="mt-1 input-content">
+      <div className="flex">
         <input
           id="passwd-confirm"
           ref={passwdConfirmRef}
           type="password"
-          className="input"
+          className="field-container-input"
           onChange={analise}
         />
         <button type="button">
